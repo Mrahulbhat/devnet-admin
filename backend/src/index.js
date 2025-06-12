@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv'
 import cookieParser from "cookie-parser"
 import authRoutes from './routes/auth.route.js'
-import messageRoutes from './routes/message.route.js'
+import registrationRoutes from './routes/reg.route.js';
 import { connectDB } from './lib/db.js';
 import cors from 'cors'
 
@@ -17,7 +17,7 @@ app.use(cors({
 }));
 
 app.use('/api/auth',authRoutes);
-app.use('/api/message',messageRoutes);
+app.use('/api/reg',registrationRoutes);
 
 const PORT = process.env.PORT;
 
