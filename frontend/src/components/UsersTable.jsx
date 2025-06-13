@@ -8,7 +8,7 @@ const UsersTable = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axiosInstance.get("/reg/registrations");
+        const res = await axiosInstance.get("/reg/users");
         setUsers(res.data);
       } catch (err) {
         console.error("Failed to fetch users:", err);
@@ -22,43 +22,48 @@ const UsersTable = () => {
   if (loading) return <div className="text-center py-8">Loading users...</div>;
 
   return (
-    <div className="overflow-x-auto p-4">
-      <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow">
-        <thead>
-          <tr className="bg-indigo-100 text-indigo-700">
-            <th className="py-2 px-4 border-b">Name</th>
-            <th className="py-2 px-4 border-b">Email</th>
-            <th className="py-2 px-4 border-b">Phone</th>
-            <th className="py-2 px-4 border-b">City</th>
-            <th className="py-2 px-4 border-b">College</th>
-            <th className="py-2 px-4 border-b">Domain</th>
-            <th className="py-2 px-4 border-b">Year</th>
-            <th className="py-2 px-4 border-b">Degree</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.length === 0 ? (
+    <div className="w-full px-2 sm:px-4 py-4">
+      <div className="overflow-x-auto rounded-xl shadow-lg border border-gray-200 bg-white">
+        <table className="min-w-[1000px] w-full text-xs">
+          <thead className="bg-indigo-600 sticky top-0 z-10">
             <tr>
-              <td colSpan={8} className="text-center py-4 text-gray-500">
-                No users found.
-              </td>
+              <th className="px-3 py-2 text-left font-bold text-white uppercase tracking-wider">Name</th>
+              <th className="px-3 py-2 text-left font-bold text-white uppercase tracking-wider">Email</th>
+              <th className="px-3 py-2 text-left font-bold text-white uppercase tracking-wider">Phone</th>
+              <th className="px-3 py-2 text-left font-bold text-white uppercase tracking-wider">City</th>
+              <th className="px-3 py-2 text-left font-bold text-white uppercase tracking-wider">College</th>
+              <th className="px-3 py-2 text-left font-bold text-white uppercase tracking-wider">Domain</th>
+              <th className="px-3 py-2 text-left font-bold text-white uppercase tracking-wider">Year</th>
+              <th className="px-3 py-2 text-left font-bold text-white uppercase tracking-wider">Degree</th>
             </tr>
-          ) : (
-            users.map((user) => (
-              <tr key={user._id} className="hover:bg-indigo-50">
-                <td className="py-2 px-4 border-b">{user.name}</td>
-                <td className="py-2 px-4 border-b">{user.email}</td>
-                <td className="py-2 px-4 border-b">{user.phone}</td>
-                <td className="py-2 px-4 border-b">{user.city}</td>
-                <td className="py-2 px-4 border-b">{user.college}</td>
-                <td className="py-2 px-4 border-b">{user.domain}</td>
-                <td className="py-2 px-4 border-b">{user.year}</td>
-                <td className="py-2 px-4 border-b">{user.degree}</td>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-100">
+            {users.length === 0 ? (
+              <tr>
+                <td colSpan={8} className="text-center py-8 text-gray-500">
+                  No users found.
+                </td>
               </tr>
-            ))
-          )}
-        </tbody>
-      </table>
+            ) : (
+              users.map((user, idx) => (
+                <tr
+                  key={user._id}
+                  className={idx % 2 === 0 ? "bg-gray-50 hover:bg-indigo-50 transition" : "bg-white hover:bg-indigo-50 transition"}
+                >
+                  <td className="px-3 py-2 whitespace-nowrap">{user.name}</td>
+                  <td className="px-3 py-2 whitespace-nowrap">{user.email}</td>
+                  <td className="px-3 py-2 whitespace-nowrap">{user.phone}</td>
+                  <td className="px-3 py-2 whitespace-nowrap">{user.city}</td>
+                  <td className="px-3 py-2 whitespace-nowrap">{user.college}</td>
+                  <td className="px-3 py-2 whitespace-nowrap">{user.domain}</td>
+                  <td className="px-3 py-2 whitespace-nowrap">{user.year}</td>
+                  <td className="px-3 py-2 whitespace-nowrap">{user.degree}</td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
